@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="DragAndDropImage.Views.EmployeeRecord"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DragAndDropImage.Views"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             AllowDrop="True">
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:EventToCommand EventName="Drop"
+                               Command="{Binding DropCommand}"
+                               PassEventArgsToCommand="True"/>
+        <dxmvvm:EventToCommand EventName="DragEnter"
+                               Command="{Binding DragEnterCommand}"/>
+        <dxmvvm:EventToCommand EventName="DragLeave"
+                               Command="{Binding DragLeaveCommand}"/>
+    </dxmvvm:Interaction.Behaviors>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <Ellipse Width="150" Height="150"
+                 Stroke="Black">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding SelectedImage}"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Button Content="Browse Image" Margin="10" Width="150" HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Background="Teal"
+                    Foreground="White"
+                    BorderBrush="Transparent"
+                    Height="30"
+                    Command="{Binding BrowseImageCommand}"/>
+        </StackPanel>
+
+
+        <StackPanel
+            Grid.Row="0"
+            Grid.RowSpan="2" 
+            Visibility="{Binding DragVisibility}"
+            Background="White"
+            Opacity="0.6"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Label Content="Drop image here" HorizontalContentAlignment="Center" Margin="0,55,0,0"
+                   FontWeight="Bold"
+                   FontSize="16"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
